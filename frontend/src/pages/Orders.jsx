@@ -12,10 +12,10 @@ const Orders = () => {
   const loadOrderData = async () => {
     try {
       if(!token){
-        return null
-      }
+        return null 
+      } 
 
-      const response = await axios.post(backendUrl + '/api/order/userorders',{},{headers:{token}});
+      const response = await axios.post(backendUrl + '/api/order/userorders',{},{headers:{Authorization: `Bearer ${token}`}});
       console.log(response.data);
       if(response.data.success){
         let allOrdersItem = [];
@@ -33,7 +33,7 @@ const Orders = () => {
       }
 
     } catch (error) {
-      
+      console.log(error);
     }
   }
 

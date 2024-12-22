@@ -28,7 +28,7 @@ const addProduct = async (req, res) => {
         let result = await cloudinary.uploader.upload(item.path,{resource_type:'image'})
         return result.secure_url;
       })
-    )
+    ) 
 
     const productData = {
       name,
@@ -63,7 +63,7 @@ const addProduct = async (req, res) => {
 const listProducts = async (req, res) => {
   try {
   const products = await productModel.find();
-
+ 
   res.json({
     success: true,
     length: products.length,
@@ -96,10 +96,10 @@ const removeProduct = async (req, res) => {
   }
 };
 
-// single product info
+// single product info  
 const singleProduct = async (req, res) => {
   try {
-    const product = await productModel.findById(req.body.id);
+    const product = await productModel.findById(req.params.productId).populate('reviews');
     res.json({
       success: true,
       product
