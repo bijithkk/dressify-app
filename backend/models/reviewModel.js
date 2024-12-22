@@ -3,7 +3,7 @@ import productModel from "./productModel.js";
 
 const reviewSchema = new mongoose.Schema(
   {
-    review: { type: String },
+    review: { type: String }, 
     rating: { type: Number },
     createdAt: { type: Date, default: Date.now() },
     product: {

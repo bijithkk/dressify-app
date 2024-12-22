@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 
 const MyProfile = () => {
   const [currentState, setCurrentState] = useState("My Orders");
@@ -13,6 +14,8 @@ const MyProfile = () => {
   const [newName,setNewName] = useState('');
   const [orderData, setOrderData] = useState([]);
   const [image,setImage] = useState(false);
+  const [isLoading,setIsLoading] = useState(false); 
+
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -73,6 +76,7 @@ const MyProfile = () => {
   };
 
   const loadUserData = async () => {
+    setIsLoading(true);
     try {
       if (!token) {
         return null;
@@ -91,10 +95,13 @@ const MyProfile = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally{
+      setIsLoading(false);
     }
   };
 
   const loadOrderData = async () => {
+    
     try {
       if (!token) {
         return null;
@@ -158,6 +165,12 @@ const MyProfile = () => {
     loadOrderData();
     loadUserData();
   }, [token]);
+
+  if (isLoading) {
+    return (
+      <Spinner/>
+    );
+  }
   
   return (
     <div className="font-[sans-serif] bg-white max-w-6xl flex flex-col m-14 items-center mx-auto md:h-screen p-4">
