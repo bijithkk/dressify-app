@@ -37,7 +37,7 @@ const forgotPassword = async (req, res, next) => {
   const resetToken = user.createPasswordReserToken();
   await user.save();
 
-  //3) Send it to users email
+  //3) Send it to users email     
   const resetURL = `${process.env.FRONTEND_URL}/resetPassword/${resetToken}`;
 
   const message = `Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forgot your password, please ignore this email!`;
